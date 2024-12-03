@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details Modal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .order-details {
+            margin-bottom: 20px;
+        }
+        .order-details h2 {
+            margin-top: 0;
+        }
+        .shipment {
+            margin-bottom: 20px;
+        }
+        .shipment table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .shipment table, .shipment th, .shipment td {
+            border: 1px solid #ddd;
+        }
+        .shipment th, .shipment td {
+            padding: 8px;
+            text-align: left;
+        }
+        .shipment th {
+            background-color: #f2f2f2;
+        }
+        .shipment img {
+            width: 50px;
+            height: auto;
+        }
+        .delivery-details {
+            margin-top: 20px;
+        }
+
+        .support-btn{
+            padding: 10px;
+            min-width: 20%;
+            /* border-radius: 5px; */
+            /* border: none; */
+            /* background: none; */
+            margin-left: 40%;
+        }
+
+/* Button to open the modal */
+#myBtn {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#myBtn:hover {
+    background-color: #45a049;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    max-width: 600px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Buttons inside the modal */
+#trackBtn, #contactBtn {
+    background-color: #008CBA; /* Blue */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#trackBtn:hover, #contactBtn:hover {
+   background-color: #007B9E; 
+}
+
+/* Timeline */
+.timeline {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.timeline-step {
+    position: relative;
+    width: 45%;
+    text-align: center;
+}
+
+.timeline-step::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    width: 10%;
+    height: 2px;
+    background-color: #ddd;
+    z-index: -1;
+}
+
+.timeline-step:last-child::before {
+    display: none;
+}
+
+.timeline-step.completed .timeline-content {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.timeline-content {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+}
+    </style>
+
+<!-- Trigger/Open The Modal -->
+<button id="myBtn">View Order Details</button>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div class="order-details">
+        <h2>Order Details</h2>
+        <p><strong>Order No:</strong> 123456</p>
+    </div>
+    <hr>
+    <div class="shipment-timeline">
+        <h3>Shipment Progress</h3>
+        <div class="timeline">
+            <div class="timeline-step completed">
+                <div class="timeline-content">
+                    <h4>Shipment 1</h4>
+                    <p>Thailand to Indonesia</p>
+                </div>
+            </div>
+            <div class="timeline-step">
+                <div class="timeline-content">
+                    <h4>Shipment 2</h4>
+                    <p>Indonesia to Australia</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="shipment">
+        <h3>Shipment 1</h3>
+        <p><strong>Shipment ID:</strong> SHIP123</p>
+        <table>
+            <tr>
+                <th>Image</th>
+                <th>SKU</th>
+                <th>Title</th>
+                <th>Merchant</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td><img src="productA.jpg" alt="Product A"></td>
+                <td>SKU123</td>
+                <td>Product A</td>
+                <td>Merchant A</td>
+                <td>In Transit</td>
+            </tr>
+            <!-- Add more products as needed -->
+        </table>
+    </div>
+    <hr>
+    <div class="shipment">
+        <h3>Shipment 2</h3>
+        <p><strong>Shipment ID:</strong> SHIP456</p>
+        <table>
+            <tr>
+                <th>Image</th>
+                <th>SKU</th>
+                <th>Title</th>
+                <th>Merchant</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td><img src="productA.jpg" alt="Product A"></td>
+                <td>SKU123</td>
+                <td>Product A</td>
+                <td>Merchant A</td>
+                <td>Arrived in destination country</td>
+            </tr>
+            <!-- Add more products as needed -->
+        </table>
+    </div>
+    <hr>
+    <div class="delivery-details">
+        <h3>Delivery Details</h3>
+        <p><strong>Courier:</strong> XYZ Courier</p>
+        <p><strong>Tracking No:</strong> 789012</p>
+        <p><strong>Estimated Delivery:</strong> 5-7 business days</p>
+
+        <!-- Buttons -->
+        <button id="contactBtn">Contact Support</button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the span element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on span (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
